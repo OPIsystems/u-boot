@@ -84,6 +84,14 @@ static int read_eeprom(struct am335x_baseboard_id *header)
                		" assuming a Rev C BBB board.\n");
 		memcpy((uchar *)header, default_eeprom_data,
 			sizeof(struct am335x_baseboard_id));
+
+        	/* write the eeprom using i2c */
+                if (i2c_write(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 2, (uchar *)header,
+                             sizeof(struct am335x_baseboard_id))) {
+        		puts("Could not write the EEPROM; is the write protect"
+                		" still enabled on the EEPROM?\n");
+        		return -EIO;
+        	}
 	}
 
 	return 0;
