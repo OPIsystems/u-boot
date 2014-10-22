@@ -80,6 +80,8 @@ static int read_eeprom(struct am335x_baseboard_id *header)
 	}
 
 	if (header->magic != 0xEE3355AA) {
+                puts("EEPROM did not contain magic value;"
+               		" assuming a Rev C BBB board.\n");
 		memcpy((uchar *)header, default_eeprom_data,
 			sizeof(struct am335x_baseboard_id));
 	}
