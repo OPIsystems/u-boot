@@ -64,6 +64,9 @@ static unsigned char default_eeprom_data[] = {
  */
 static int read_eeprom(struct am335x_baseboard_id *header)
 {
+	int i = 0;
+	const int sz = 32;
+
 	/* Check if baseboard eeprom is available */
 	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
 		puts("Could not probe the EEPROM; something fundamentally "
@@ -86,12 +89,18 @@ static int read_eeprom(struct am335x_baseboard_id *header)
 			sizeof(struct am335x_baseboard_id));
 
         	/* write the eeprom using i2c */
-                if (i2c_write(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 2, (uchar *)header,
-                             sizeof(struct am335x_baseboard_id))) {
-        		puts("Could not write the EEPROM; is the write protect"
-                		" still enabled on the EEPROM?\n");
-        		return -EIO;
-        	}
+		for (i = 0; i < 128; i += sz) {
+                	if (i2c_write(CONFIG_SYS_I2C_EEPROM_ADDR, i, 2, 
+				(uchar *)default_eeprom_data + i, sz)) {
+        			puts("Could not write the EEPROM; is the write protect"
+                			" still enabled on the EEPROM?\n");
+        			return -EIO;
+        		}
+	
+			/* Check if baseboard eeprom is available */
+			puts("Waiting on the a chunk of EEPROM to program\n");
+			while (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR));
+		}
 	}
 
 	return 0;
