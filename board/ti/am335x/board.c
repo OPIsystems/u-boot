@@ -103,6 +103,16 @@ static int read_eeprom(struct am335x_baseboard_id *header)
 		}
 	}
 
+	gpio_direction_output(53, 0);
+	gpio_direction_output(54, 0);
+	gpio_direction_output(55, 0);
+	gpio_direction_output(56, 0);
+
+	gpio_set_value(53, 1);
+	gpio_set_value(54, 1);
+	gpio_set_value(55, 1);
+	gpio_set_value(56, 1);
+
 	return 0;
 }
 
