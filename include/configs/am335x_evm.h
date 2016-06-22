@@ -188,6 +188,18 @@
 	DFUARGS
 #endif
 
+#if defined CONFIG_SDCARD_INSTALLER
+#define CONFIG_BOOTCOMMAND \
+        "run mmcargs; " \
+        "load mmc 0:1 0x82000000 MLO; " \
+	"load mmc 0:1 0x83000000 u-boot.imx; " \
+        "mmc dev 1; " \
+	"mmc write 0x82000000 100 100; " \
+	"mmc write 0x83000000 300 300; " \
+        "load mmc 0:1 ${fdtaddr} am335x-boneblack.dtb; " \
+        "load mmc 0:1 ${loadaddr} installer-zimage-usd; " \
+        "bootz ${loadaddr} - ${fdtaddr};"
+#else
 #define CONFIG_BOOTCOMMAND \
 	"run findfdt; " \
 	"run mmcboot;" \
@@ -195,6 +207,8 @@
 	"setenv bootpart 1:2; " \
 	"run mmcboot;" \
 	"run nandboot;"
+
+#endif
 
 /* NS16550 Configuration */
 #define CONFIG_SYS_NS16550_COM1		0x44e09000	/* Base EVM has UART0 */
