@@ -192,7 +192,7 @@
 #define CONFIG_BOOTCOMMAND \
         "run mmcargs; " \
         "load mmc 0:1 0x82000000 MLO; " \
-	"load mmc 0:1 0x83000000 u-boot.imx; " \
+	"load mmc 0:1 0x83000000 u-boot.img; " \
         "mmc dev 1; " \
 	"mmc write 0x82000000 100 100; " \
 	"mmc write 0x83000000 300 300; " \
