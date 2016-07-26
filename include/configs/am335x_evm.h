@@ -88,11 +88,6 @@
 #if defined CONFIG_SDCARD_INSTALLER
 #define CONFIG_BOOTCOMMAND \
         "run mmcargs; " \
-        "load mmc 0:1 0x82000000 MLO; " \
-	"load mmc 0:1 0x83000000 u-boot.img; " \
-        "mmc dev 1; " \
-	"mmc write 0x82000000 100 100; " \
-	"mmc write 0x83000000 300 300; " \
         "load mmc 0:1 ${fdtaddr} am335x-boneblack.dtb; " \
         "load mmc 0:1 ${loadaddr} installer-zimage-usd; " \
         "bootz ${loadaddr} - ${fdtaddr};"
