@@ -632,7 +632,6 @@ int board_eth_init(bd_t *bis)
 	}
 
 #ifdef CONFIG_DRIVER_TI_CPSW
-
 	mac_lo = readl(&cdev->macid1l);
 	mac_hi = readl(&cdev->macid1h);
 	mac_addr[0] = mac_hi & 0xFF;
@@ -660,6 +659,8 @@ int board_eth_init(bd_t *bis)
 		cpsw_slaves[0].phy_if = cpsw_slaves[1].phy_if =
 				PHY_INTERFACE_MODE_RGMII;
 	}
+
+	cpsw_slaves[0].phy_addr = cpsw_slaves[1].phy_addr = 1;
 
 	rv = cpsw_register(&cpsw_data);
 	if (rv < 0)
@@ -689,6 +690,7 @@ int board_eth_init(bd_t *bis)
 		miiphy_write(devname, 0x0, AR8051_PHY_DEBUG_DATA_REG,
 				AR8051_RGMII_TX_CLK_DLY);
 	}
+
 #endif
 #if defined(CONFIG_USB_ETHER) && \
 	(!defined(CONFIG_SPL_BUILD) || defined(CONFIG_SPL_USBETH_SUPPORT))
