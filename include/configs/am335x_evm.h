@@ -57,7 +57,7 @@
 #ifndef CONFIG_SPL_BUILD
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	DEFAULT_LINUX_BOOT_ENV \
-	"bootpart=1:2\0" \
+	"bootpart=1:1\0" \
 	"bootdir=/boot\0" \
 	"bootfile=zImage\0" \
 	"fdtfile=am335x-boneblack.dtb\0" \
