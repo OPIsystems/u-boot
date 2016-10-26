@@ -64,32 +64,32 @@ static unsigned char default_eeprom_data[] = {
  */
 static int read_eeprom(struct am335x_baseboard_id *header)
 {
-	int i = 0;
-	const int sz = 32;
+	/*int i = 0;
+	const int sz = 32;*/
 
-	/* Check if baseboard eeprom is available */
+	/* Check if baseboard eeprom is available 
 	if (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR)) {
 		puts("Could not probe the EEPROM; something fundamentally "
 			"wrong on the I2C bus.\n");
 		return -ENODEV;
-	}
+	}*/
 
-	/* read the eeprom using i2c */
+	/* read the eeprom using i2c 
 	if (i2c_read(CONFIG_SYS_I2C_EEPROM_ADDR, 0, 2, (uchar *)header,
 		     sizeof(struct am335x_baseboard_id))) {
 		puts("Could not read the EEPROM; something fundamentally"
 			" wrong on the I2C bus.\n");
 		return -EIO;
-	}
+	}*/
 
 	if (header->magic != 0xEE3355AA) {
-                puts("EEPROM did not contain magic value;"
-               		" assuming a Rev C BBB board.\n");
+                /*puts("EEPROM did not contain magic value;"
+               		" assuming a Rev C BBB board.\n");*/
 		memcpy((uchar *)header, default_eeprom_data,
 			sizeof(struct am335x_baseboard_id));
 
         	/* write the eeprom using i2c */
-		for (i = 0; i < 128; i += sz) {
+		/*for (i = 0; i < 128; i += sz) {
                 	if (i2c_write(CONFIG_SYS_I2C_EEPROM_ADDR, i, 2, 
 				(uchar *)default_eeprom_data + i, sz)) {
         			puts("Could not write the EEPROM; is the write protect"
@@ -97,10 +97,10 @@ static int read_eeprom(struct am335x_baseboard_id *header)
         			return -EIO;
         		}
 	
-			/* Check if baseboard eeprom is available */
+			// Check if baseboard eeprom is available 
 			puts("Waiting on the a chunk of EEPROM to program\n");
 			while (i2c_probe(CONFIG_SYS_I2C_EEPROM_ADDR));
-		}
+		}*/
 	}
 
 	gpio_direction_output(53, 0);
@@ -632,6 +632,7 @@ int board_eth_init(bd_t *bis)
 	}
 
 #ifdef CONFIG_DRIVER_TI_CPSW
+
 	mac_lo = readl(&cdev->macid1l);
 	mac_hi = readl(&cdev->macid1h);
 	mac_addr[0] = mac_hi & 0xFF;
@@ -660,7 +661,7 @@ int board_eth_init(bd_t *bis)
 				PHY_INTERFACE_MODE_RGMII;
 	}
 
-	cpsw_slaves[0].phy_addr = cpsw_slaves[1].phy_addr = 1;
+        cpsw_slaves[0].phy_addr = cpsw_slaves[1].phy_addr = 1;
 
 	rv = cpsw_register(&cpsw_data);
 	if (rv < 0)
@@ -690,7 +691,6 @@ int board_eth_init(bd_t *bis)
 		miiphy_write(devname, 0x0, AR8051_PHY_DEBUG_DATA_REG,
 				AR8051_RGMII_TX_CLK_DLY);
 	}
-
 #endif
 #if defined(CONFIG_USB_ETHER) && \
 	(!defined(CONFIG_SPL_BUILD) || defined(CONFIG_SPL_USBETH_SUPPORT))
