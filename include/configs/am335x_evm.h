@@ -60,6 +60,7 @@
 	"bootpart=1:1\0" \
 	"bootdir=/boot\0" \
 	"bootfile=zImage\0" \
+	"ethaddr=00:1c:2c:ff:ff:ff\0" \
 	"fdtfile=am335x-boneblack.dtb\0" \
 	"console=ttyO0,115200n8\0" \
 	"mmcdev=1\0" \
