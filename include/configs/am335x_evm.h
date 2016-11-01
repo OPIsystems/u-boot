@@ -58,6 +58,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	DEFAULT_LINUX_BOOT_ENV \
 	"bootpart=1:1\0" \
+	"bootdelay=0\0" \
 	"bootdir=/boot\0" \
 	"bootfile=zImage\0" \
 	"ethaddr=00:1c:2c:ff:ff:ff\0" \
