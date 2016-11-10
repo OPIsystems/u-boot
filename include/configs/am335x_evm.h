@@ -95,7 +95,7 @@
         "bootz ${loadaddr} - ${fdtaddr};"
 #else
 #define CONFIG_BOOTCOMMAND \
-	"run mmcboot; "
+	"setenv bootdelay 0; setenv bootcmd 'run mmcboot'; saveenv; saveenv; run mmcboot; "
 #endif
 
 /* NS16550 Configuration */
