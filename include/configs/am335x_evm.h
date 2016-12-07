@@ -82,7 +82,7 @@
 					"echo WARN: Cannot load the DT; " \
 				"fi; " \
 			"fi;\0" \
-	"mmcboot=mmc dev ${mmcdev}; if run loadimage; then run mmcloados; else echo ERROR: could not load ${bootdir}/${bootfile}!; fi;\0 " \
+	"bootmmc=mmc dev ${mmcdev}; if run loadimage; then run mmcloados; else echo ERROR: could not load ${bootdir}/${bootfile}!; fi;\0 " \
 	NANDARGS \
 	DFUARGS
 #endif
@@ -95,7 +95,7 @@
         "bootz ${loadaddr} - ${fdtaddr};"
 #else
 #define CONFIG_BOOTCOMMAND \
-	"setenv bootdelay 0; setenv bootcmd 'run mmcboot'; saveenv; saveenv; run mmcboot; "
+	"setenv bootdelay 0; setenv bootcmd 'run bootmmc'; saveenv; saveenv; run bootmmc; "
 #endif
 
 /* NS16550 Configuration */
