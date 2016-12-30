@@ -95,7 +95,8 @@
         "bootz ${loadaddr} - ${fdtaddr};"
 #else
 #define CONFIG_BOOTCOMMAND \
-	"setenv bootdelay 0; setenv bootcmd 'run bootmmc'; saveenv; saveenv; run bootmmc; "
+	"mmc dev ${mmcdev}; ext4load mmc 1 0x18000000 /boot/uEnv.txt; env import -t 0x18000000 $filesize; boot;"
+//	"setenv bootdelay 0; setenv bootcmd 'run bootmmc'; saveenv; saveenv; run bootmmc; "
 #endif
 
 /* NS16550 Configuration */
