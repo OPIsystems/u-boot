@@ -43,6 +43,7 @@
 
 /* Always 128 KiB env size */
 #define CONFIG_ENV_SIZE			(128 << 10)
+#define CONFIG_ENV_IS_NOWHERE		1
 
 /* Enhance our eMMC support / experience. */
 #define CONFIG_CMD_GPT
@@ -96,7 +97,6 @@
 #else
 #define CONFIG_BOOTCOMMAND \
 	"mmc dev ${mmcdev}; ext4load mmc 1 0x18000000 /boot/uEnv.txt; env import -t 0x18000000 $filesize; boot;"
-//	"setenv bootdelay 0; setenv bootcmd 'run bootmmc'; saveenv; saveenv; run bootmmc; "
 #endif
 
 /* NS16550 Configuration */
@@ -171,7 +171,7 @@
 					"8m(NAND.kernel)," \
 					"-(NAND.rootfs)"
 #define CONFIG_SYS_NAND_U_BOOT_OFFS	0x000c0000
-#undef CONFIG_ENV_IS_NOWHERE
+#define CONFIG_ENV_IS_NOWHERE		1
 #define CONFIG_ENV_IS_IN_NAND
 #define CONFIG_ENV_OFFSET		0x001c0000
 #define CONFIG_ENV_OFFSET_REDUND	0x001e0000
@@ -321,8 +321,8 @@
 					"-(rootfs)"
 
 #elif defined(CONFIG_EMMC_BOOT)
-#undef CONFIG_ENV_IS_NOWHERE
-#define CONFIG_ENV_IS_IN_MMC
+#define CONFIG_ENV_IS_NOWHERE		1
+#undef CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SPL_ENV_SUPPORT
 
 #ifdef CONFIG_SDCARD_INSTALLER
@@ -333,6 +333,7 @@
  #define CONFIG_SYS_MMC_ENV_PART         2
 #endif
 
+#define CONFIG_ENV_IS_NOWHERE		1
 #define CONFIG_ENV_OFFSET               0x0
 #define CONFIG_ENV_OFFSET_REDUND        (CONFIG_ENV_OFFSET + CONFIG_ENV_SIZE)
 #define CONFIG_SYS_REDUNDAND_ENVIRONMENT
@@ -381,6 +382,7 @@
 #define CONFIG_ENV_SECT_SIZE		(128 << 10)	/* 128 KiB */
 #define CONFIG_ENV_OFFSET		(512 << 10)	/* 512 KiB */
 #define CONFIG_ENV_OFFSET_REDUND	(768 << 10)	/* 768 KiB */
+#define CONFIG_ENV_IS_NOWHERE		1
 #define MTDIDS_DEFAULT			"nor0=physmap-flash.0"
 #define MTDPARTS_DEFAULT		"mtdparts=physmap-flash.0:" \
 					"512k(u-boot)," \
