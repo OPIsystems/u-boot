@@ -1,0 +1,43 @@
+arch=CONFIG_SYS_ARCH
+baudrate=115200
+board=CONFIG_SYS_BOARD
+board_name=A335BNLT
+board_rev=000C
+bootcmd=run bootmmc
+bootcommand=run mmcboot
+bootcount=1
+bootdelay=0
+bootdir=/boot
+bootfile=zImage
+bootm_size=0x10000000
+bootmmc=mmc dev ${mmcdev}; if run loadimage; then run mmcloados; else echo ERROR: could not load ${bootdir}/${bootfile}!; fi;
+bootpart=1:1
+console=ttyO0,115200n8
+cpu=CONFIG_SYS_CPU
+dfu_alt_info_emmc=rawemmc mmc 0 3751936
+dfu_alt_info_mmc=boot part 0 1;rootfs part 0 2;MLO fat 0 1;MLO.raw mmc 0x100 0x100;u-boot.img.raw mmc 0x300 0x400;spl-os-args.raw mmc 0x80 0x80;spl-os-image.raw mmc 0x900 0x2000;spl-os-args fat 0 1;spl-os-image fat 0 1;u-boot.img fat 0 1;uEnv.txt fat 0 1
+dfu_alt_info_ram=kernel ram 0x80200000 0xD80000;fdt ram 0x80F80000 0x80000;ramdisk ram 0x81000000 0x4000000
+eth1addr=f4:5e:ab:3e:54:9d
+ethact=cpsw
+ethaddr=00:1c:2c:ff:ff:ff
+fdt_addr_r=0x88000000
+fdtaddr=0x88000000
+fdtfile=am335x-boneblack.dtb
+kernel_addr_r=0x82000000
+loadaddr=0x82000000
+loadfdt=load mmc ${bootpart} ${fdtaddr} ${bootdir}/${fdtfile}
+loadimage=load mmc ${bootpart} ${loadaddr} ${bootdir}/${bootfile}
+mmcargs=setenv bootargs console=${console} root=${mmcroot} ${mmcrootfstype}
+mmcboot=run bootmmc
+mmcdev=1
+mmcloados=run mmcargs; if run loadfdt; then bootz ${loadaddr} - ${fdtaddr}; else if test ${boot_fdt} = try; then bootz; else echo WARN: Cannot load the DT; fi; fi;
+mmcroot=LABEL=INTERNAL
+mmcrootfstype=ext4 rootdelay=2 rw
+ramdisk_addr_r=0x88080000
+rdaddr=0x88080000
+stderr=serial
+stdin=serial
+stdout=serial
+usbnet_devaddr=f4:5e:ab:3e:54:9d
+ver=U-Boot 2014.10-00017-g1e5be2b (Dec 07 2016 - 13:45:02)
+version=VERSION
