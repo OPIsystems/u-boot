@@ -96,7 +96,7 @@
         "bootz ${loadaddr} - ${fdtaddr};"
 #else
 #define CONFIG_BOOTCOMMAND \
-	"mmc dev ${mmcdev}; ext4load mmc 1 0x18000000 /boot/uEnv.txt; env import -t 0x18000000 $filesize; boot;"
+	"mmc dev ${mmcdev}; ext4load mmc 1 ${loadaddr} /boot/uEnv.txt; env import -t ${loadaddr} $filesize; boot;"
 #endif
 
 /* NS16550 Configuration */
